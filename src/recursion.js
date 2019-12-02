@@ -7,26 +7,88 @@
 // Example: 5! = 5 x 4 x 3 x 2 x 1 = 120
 // factorial(5); // 120
 var factorial = function(n) {
+	//base case / test condition
+  if (n < 0) {
+    return null;
+  }
+  // base case / 
+  if (n === 0) {
+    return 1;
+  }
+  // recursive case
+  return (n * factorial(n - 1));
 };
 
 // 2. Compute the sum of an array of integers.
 // sum([1,2,3,4,5,6]); // 21
 var sum = function(array) {
+	// base case / test condition
+	var arrCopy = array.slice(0);
+	//base case / test condition
+	if(array.length === 0) {
+		return 0;
+	//base case
+	} else if(array.length === 1) {
+		return array[0];
+	//recursive case
+	} else {
+		arrCopy[arrCopy.length - 1] =  arrCopy[arrCopy.length - 1] + arrCopy[0];
+		var currentArr = arrCopy.slice(1);
+		return sum(currentArr);
+	}
 };
 
 // 3. Sum all numbers in an array containing nested arrays.
 // arraySum([1,[2,3],[[4]],5]); // 15
 var arraySum = function(array) {
+	//flatten array
+	var flatArr = array.flat(Infinity);
+	// run it thru like sum
+	if(flatArr.length === 0) {
+		return 0;
+	//base case
+	} else if(flatArr.length === 1) {
+		return flatArr[0];
+	//recursive case
+	} else {
+		flatArr[flatArr.length - 1] =  flatArr[flatArr.length - 1] + flatArr[0];
+		var currentArr = flatArr.slice(1);
+		return arraySum(currentArr);
+	}
+
 };
 
 // 4. Check if a number is even.
 var isEven = function(n) {
+	//base case (no remainder is even)
+	if (Math.abs(n) === 0) {
+		return true;
+	//base case (remainder of 1 is odd)
+	} else if (Math.abs(n) === 1) {
+		return false;
+	} else {
+		return isEven(Math.abs(n) - 2);
+	}
 };
 
 // 5. Sum all integers below a given integer.
 // sumBelow(10); // 45
 // sumBelow(7); // 21
 var sumBelow = function(n) {
+	//if n === 0 / base case
+	if (n === 0 ) {
+		//return n
+		return n;
+	}
+	if (Math.sign(n) === 1) {
+	//if n is a positive integer
+		//n-1 + sumBelow(n-1)
+		return (n - 1) + sumBelow(n - 1);
+	} else {
+	//if n is a negative integer
+		//n-1 + sumBelow(n+1)
+		return (n + 1) + sumBelow(n + 1)
+	}
 };
 
 // 6. Get the integers within a range (x, y).
